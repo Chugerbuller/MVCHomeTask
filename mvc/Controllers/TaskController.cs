@@ -32,15 +32,22 @@ public class TaskController
                 case "1":
                     ShowAllTasks();
                     break;
+
                 case "2":
                     AddTask();
                     break;
+
                 case "3":
                     CompleteTask();
                     break;
+
                 case "4":
+                    EditTask();
+                    break;
+                case "5":
                     exitRequested = _view.ConfirmExit();
                     break;
+
                 default:
                     _view.ShowMessage("Invalid option. Please try again.");
                     break;
@@ -68,6 +75,35 @@ public class TaskController
         _view.ShowMessage("Task added successfully.");
     }
 
+    private void EditTask()
+    {
+        if (_tasks.Count == 0)
+        {
+            _view.ShowMessage("No tasks available to complete.");
+            return;
+        }
+
+        _view.ShowTasks(_tasks);
+
+        var id = _view.GetTaskId();
+        var newTitle = _view.GetTaskNewTitle();
+
+        if (String.IsNullOrEmpty(newTitle))
+        {
+            _view.ShowMessage("Task title cannot be empty.");
+            return;
+        }
+        var task = _tasks.FirstOrDefault(t => t.Id == id);
+        if (task is null)
+        {
+            _view.ShowMessage("No tasks with this id");
+            return;
+        }
+        var oldTitle = task.Title;
+        task.Title = newTitle;
+        _view.ShowMessage($"Task title was changed from {oldTitle} to {newTitle}");
+    }
+
     private void CompleteTask()
     {
         if (_tasks.Count == 0)
@@ -91,4 +127,3 @@ public class TaskController
         }
     }
 }
-

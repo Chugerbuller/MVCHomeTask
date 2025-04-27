@@ -12,7 +12,8 @@ public class TaskView : IView
         Console.WriteLine("1. Show all tasks");
         Console.WriteLine("2. Add new task");
         Console.WriteLine("3. Complete task");
-        Console.WriteLine("4. Exit");
+        Console.WriteLine("4. Edit task title");
+        Console.WriteLine("5. Exit");
         Console.Write("Select an option: ");
     }
 
@@ -31,6 +32,12 @@ public class TaskView : IView
     public string GetTaskTitle()
     {
         Console.Write("Enter task title: ");
+        return Console.ReadLine() ?? string.Empty;
+    }
+
+    public string GetTaskNewTitle()
+    {
+        Console.Write("Enter new task title: ");
         return Console.ReadLine() ?? string.Empty;
     }
 
@@ -58,6 +65,7 @@ public class TaskView : IView
     {
         Console.WriteLine(message);
     }
+
     public bool ConfirmExit()
     {
         Console.Write("Are you sure you want to exit? (Y/N): ");
